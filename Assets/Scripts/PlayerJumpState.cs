@@ -2,9 +2,7 @@ using UnityEngine;
 
 public class PlayerJumpState : PlayerState
 {
-
-    public PlayerJumpState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) 
-        : base(_player, _stateMachine, _animBoolName)
+    public PlayerJumpState(Player _player, PlayerStateMachine _stateMachine, string _animBoolName) : base(_player, _stateMachine, _animBoolName)
     {
     }
 
@@ -18,14 +16,22 @@ public class PlayerJumpState : PlayerState
     public override void Update()
     {
         base.Update();
+
         if (rb.linearVelocityY < 0)
+        {
             stateMachine.ChangeState(player.airState);
+        }
+            
+        if (player.IsWallDetected())
+        {
+            Debug.Log("벽에 닿음");
+            stateMachine.ChangeState(player.wallSlideState);
+        }
     }
 
     public override void Exit()
     {
-        
         base.Exit();
-
     }
+
 }
