@@ -36,7 +36,6 @@ public class PlayerWallSlideState : PlayerState
         {
             stateMachine.ChangeState(player.idleState);
         }
-
     }
 
     public override void Exit()
