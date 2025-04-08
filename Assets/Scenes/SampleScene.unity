@@ -1184,10 +1184,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveSpeed: 8
   jumpForce: 12
-  dashSpeed: 20
-  dashDuration: 0.5
   wallSlideSpeed: 1
   wallJumpForce: 15
+  dashCooldown: 1
+  dashSpeed: 20
+  dashDuration: 0.4
   groundCheck: {fileID: 925656994}
   groundCheckDistance: 1.4
   wallCheck: {fileID: 1846679143}
@@ -1253,7 +1254,7 @@ CapsuleCollider2D:
   m_Enabled: 1
   serializedVersion: 3
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: e1fde396e5d9148a4ad4f5e17b35eb0e, type: 2}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

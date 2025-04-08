@@ -8,6 +8,7 @@ public class PlayerState
     protected Rigidbody2D rb;
 
     protected float xInput;
+    protected float yInput;
     private string animBoolName;
 
     protected float stateTimer;

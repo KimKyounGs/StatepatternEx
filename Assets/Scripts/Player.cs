@@ -7,10 +7,16 @@ public class Player : MonoBehaviour
     [Header("플레이어 정보")] 
     public float moveSpeed = 12f;
     public float jumpForce;
-    public float dashSpeed = 20f;
-    public float dashDuration = 0.5f;
     public float wallSlideSpeed;
     public float wallJumpForce;
+
+    [Header("대시 정보")]
+    [SerializeField] private float dashCooldown;
+    private float dashUsageTimer;
+    public float dashSpeed;
+    public float dashDuration;
+    public float dashDir { get; private set; }
+    
 
     [Header("충돌 정보")]
     [SerializeField] private Transform groundCheck; 
@@ -66,12 +72,30 @@ public class Player : MonoBehaviour
     private void Update()
     {
         stateMachine.currentState.Update();
+        CheckForDashInput();
     }
 
     public void SetVelocity(float _xVelocity, float _yVelocity)
     {
         rb.linearVelocity = new Vector2(_xVelocity, _yVelocity);
         FlipController(_xVelocity);
+    }
+
+    private void CheckForDashInput()
+    {
+        dashUsageTimer -= Time.deltaTime;
+
+        if (Input.GetKeyDown(KeyCode.LeftShift) && dashUsageTimer<0)
+        {
+            dashUsageTimer = dashCooldown;
+            dashDir = Input.GetAxisRaw("Horizontal");
+
+            if (dashDir == 0)
+                dashDir = facingDir;
+
+            stateMachine.ChangeState(dashState);
+        }
+           
     }
 
     public bool IsGroundDetected() => Physics2D.Raycast(groundCheck.position, Vector2.down, groundCheckDistance, whatIsGround);

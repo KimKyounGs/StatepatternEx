@@ -15,7 +15,7 @@ public class PlayerWallSlideState : PlayerState
     public override void Update()
     {
         base.Update();
-        rb.linearVelocity = new Vector2(rb.linearVelocityX, -player.wallSlideSpeed);
+        rb.linearVelocity = new Vector2(0, -player.wallSlideSpeed);
         
         if (player.IsWallDetected()) // 벽에 계속 닿아져야 함.
         { 
