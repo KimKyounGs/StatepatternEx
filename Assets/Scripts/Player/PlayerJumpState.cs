@@ -24,7 +24,6 @@ public class PlayerJumpState : PlayerState
             
         if (player.IsWallDetected())
         {
-            Debug.Log("벽에 닿음");
             stateMachine.ChangeState(player.wallSlideState);
         }
     }

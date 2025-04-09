@@ -37,7 +37,7 @@ public class PlayerPrimaryAttack : PlayerState
     {
         base.Update();
 
-        if (stateTimer < 0) player.ZeroVeclocity();
+        if (stateTimer < 0) player.ZeroVelocity();
 
         if (triggerCalled) stateMachine.ChangeState(player.idleState);
     }
