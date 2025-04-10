@@ -54572,7 +54572,7 @@ GameObject:
   - component: {fileID: 5344562882463393381}
   - component: {fileID: 7196670538207085428}
   - component: {fileID: 1633591725219306194}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Player
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54588,7 +54588,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5802725544255620154}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54661,6 +54661,12 @@ MonoBehaviour:
     m_Bits: 128
   moveSpeed: 3
   idleTime: 1
+  attackDistance: 1
+  attackCooldown: 0
+  lastTimeAttacked: 0
+  whatIsPlayer:
+    serializedVersion: 2
+    m_Bits: 512
 --- !u!1 &3088957988380465705
 GameObject:
   m_ObjectHideFlags: 0
@@ -54672,7 +54678,8 @@ GameObject:
   - component: {fileID: 4342887778162182306}
   - component: {fileID: 610723755799535789}
   - component: {fileID: 6628666641527125225}
-  m_Layer: 0
+  - component: {fileID: 6628666641527125226}
+  m_Layer: 10
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54874,7 +54881,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8399359746300916149}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54920,7 +54927,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1820982983418201315}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54939,7 +54946,7 @@ GameObject:
   - component: {fileID: 2258143218040339898}
   - component: {fileID: 4951390607804390759}
   - component: {fileID: 9106380884731486189}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: Enemy_Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54958,7 +54965,7 @@ GameObject:
   - component: {fileID: 4322125171055915094}
   - component: {fileID: 3639040042762040220}
   - component: {fileID: 262588012440831661}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Animator
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -54987,6 +54994,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &6628666641527125226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3088957988380465705}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20f78530473c24f2cb0ede4d5ca92471, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!70 &7196670538207085428
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -55048,7 +55067,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5509586325909666798}
-  m_Layer: 0
+  m_Layer: 10
   m_Name: WallCheck
   m_TagString: Untagged
   m_Icon: {fileID: 0}
