@@ -5,6 +5,9 @@ public class Enemy : Entity
     [Header("이동 정보")]
     public float moveSpeed;
     public float idleTime;
+    public float battleTime;
+
+    
 
     [Header("공격 정보")]
     public float attackDistance;
