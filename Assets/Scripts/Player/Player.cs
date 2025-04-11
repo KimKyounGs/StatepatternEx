@@ -6,6 +6,8 @@ public class Player : Entity
 {
     [Header("공격 디테일")]
     public Vector2[] attackMovement = new Vector2[3]; // 공격 시 이동 방향
+    public float counterAttackDuration = 0.2f;
+
     public bool isBusy { get; private set; }
     [Header("플레이어 정보")] 
     public float moveSpeed = 12f;
@@ -32,6 +34,7 @@ public class Player : Entity
     public PlayerWallSlideState wallSlideState { get; private set; }
 
     public PlayerPrimaryAttack primaryAttack { get; private set; }
+    public PlayerCounterAttackState counterAttack { get; private set; }
     #endregion
     
 
@@ -48,6 +51,7 @@ public class Player : Entity
         wallSlideState = new PlayerWallSlideState(this, stateMachine, "WallSlide");
 
         primaryAttack = new PlayerPrimaryAttack(this, stateMachine, "Attack");
+        counterAttack = new PlayerCounterAttackState(this, stateMachine, "CounterAttack");
     }
 
     protected override void Start()
@@ -67,7 +71,6 @@ public class Player : Entity
     public IEnumerator BusyFor(float _seconds)
     {
         isBusy = true;
-
        
         yield return new WaitForSeconds(_seconds);
       

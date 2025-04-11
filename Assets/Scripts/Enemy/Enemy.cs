@@ -1,3 +1,4 @@
+using TMPro;
 using UnityEngine;
 
 public class Enemy : Entity
@@ -12,6 +13,12 @@ public class Enemy : Entity
     public float attackDistance;
     public float attackCooldown;
     [HideInInspector]public float lastTimeAttacked;
+
+    [Header("스턴 정보")]
+    public float stunDuration;
+    public Vector2 stunDirection;
+    protected bool canBeStunned;
+    [SerializeField] protected GameObject counterImage;
 
 
     public EnemyStateMachine stateMachine; // 상태 머신
@@ -33,6 +40,29 @@ public class Enemy : Entity
     {
         base.Update();
         stateMachine.currentState.Update(); // 현재 상태 업데이트
+    }
+
+    public virtual void OpenCounterAttackWindow()
+    {
+        canBeStunned = true;
+        counterImage.SetActive(true);
+    }
+
+    public virtual void CloseCounterAttackWindow()
+    {
+        canBeStunned = false;
+        counterImage.SetActive(false);
+    }
+
+    public virtual bool CanBeStunned()
+    {
+        if (canBeStunned)
+        {
+            CloseCounterAttackWindow();
+            return true;
+        }
+
+        return false;
     }
 
     public virtual void AnimationFinishTrigger() => stateMachine.currentState.AnimationFinishTrigger();
