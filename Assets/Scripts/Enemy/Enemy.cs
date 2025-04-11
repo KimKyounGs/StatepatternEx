@@ -7,7 +7,6 @@ public class Enemy : Entity
     public float idleTime;
     public float battleTime;
 
-    
 
     [Header("공격 정보")]
     public float attackDistance;
