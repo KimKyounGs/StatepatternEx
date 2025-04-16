@@ -8,7 +8,12 @@ public class Player : Entity
     public Vector2[] attackMovement = new Vector2[3]; // 공격 시 이동 방향
     public float counterAttackDuration = 0.2f;
 
+
+    public SkillManager skill { get; private set;}
+    public GameObject sword { get; private set; }
     public bool isBusy { get; private set; }
+    public float swordReturnImpact;
+
     [Header("플레이어 정보")] 
     public float moveSpeed = 12f;
     public float jumpForce;
@@ -21,7 +26,6 @@ public class Player : Entity
     public float dashDir { get; private set; }
 
 
-    public SkillManager skill { get; private set;}
 
     #region States
 
@@ -75,6 +79,17 @@ public class Player : Entity
         base.Update();
         stateMachine.currentState.Update();
         CheckForDashInput();
+    }
+
+    public void AssignNewSword(GameObject _newSword)
+    {
+        sword = _newSword;
+    }
+
+    public void ClearTheSword()
+    {
+        stateMachine.ChangeState(catchSword);
+        Destroy(sword);
     }
 
     public IEnumerator BusyFor(float _seconds)
