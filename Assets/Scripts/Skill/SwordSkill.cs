@@ -16,10 +16,17 @@ public class SwordSkill : Skill
     [Header("바운스 정보")]
     [SerializeField] private int bounceAmount;
     [SerializeField] private float bounceGravity;
+    [SerializeField] private float bounceSpeed;
 
     [Header("관통 정보")]
     [SerializeField] private int pierceAmount;
     [SerializeField] private float pierceGravity;
+
+    [Header("스핀 정보")]
+    [SerializeField] private float hitCooldown;
+    [SerializeField] private float maxTravelDistance;
+    [SerializeField] private float spinDuration;
+    [SerializeField] private float spinGravity;
 
 
     
@@ -27,6 +34,7 @@ public class SwordSkill : Skill
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce; 
     [SerializeField] private float swordGravity;
+    [SerializeField] private float freezeTimeDuration;
     private Vector2 finalDir;
 
 
@@ -68,6 +76,8 @@ public class SwordSkill : Skill
             swordGravity = bounceGravity;
         else if (swordType == SwordType.Pierce)
             swordGravity = pierceGravity;
+        else if (swordType == SwordType.Spin)
+            swordGravity = spinGravity;
     }
 
 
@@ -76,13 +86,15 @@ public class SwordSkill : Skill
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
         SwordSkillController newSwordScript = newSword.GetComponent<SwordSkillController>();
 
-       if (swordType == SwordType.Bounce)
+        if (swordType == SwordType.Bounce)
             newSwordScript.SetupBounce(true, bounceAmount);
         else if (swordType == SwordType.Pierce)
             newSwordScript.SetupPierce(pierceAmount);
+        else if (swordType == SwordType.Spin)
+            newSwordScript.SetupSpin(true, maxTravelDistance, spinDuration, hitCooldown);
 
 
-            newSwordScript.SetupSword(finalDir, swordGravity, player);
+        newSwordScript.SetupSword(finalDir, swordGravity, player, freezeTimeDuration);
 
         player.AssignNewSword(newSword);
 
