@@ -1,16 +1,34 @@
-using TreeEditor;
-using Unity.Mathematics;
+using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
+
+public enum SwordType
+{
+    Regular, // 기본
+    Bounce, // 튕기기
+    Pierce, // 관통
+    Spin // 스핀
+}
 
 public class SwordSkill : Skill
 {
+    public SwordType swordType = SwordType.Regular;
+
+    [Header("바운스 정보")]
+    [SerializeField] private int bounceAmount;
+    [SerializeField] private float bounceGravity;
+
+    [Header("관통 정보")]
+    [SerializeField] private int pierceAmount;
+    [SerializeField] private float pierceGravity;
+
+
+    
     [Header("스킬 정보")]
     [SerializeField] private GameObject swordPrefab;
     [SerializeField] private Vector2 launchForce; 
     [SerializeField] private float swordGravity;
-
     private Vector2 finalDir;
+
 
     [Header("에임 보여주기")]
     [SerializeField] private int numberOfDots;
@@ -24,7 +42,9 @@ public class SwordSkill : Skill
     {
         base.Start();
         GenerateDots();
+        SetupGravity();
     }
+    
 
     protected override void Update()
     {
@@ -42,18 +62,34 @@ public class SwordSkill : Skill
         }
     }
 
+    private void SetupGravity()
+    {
+        if (swordType == SwordType.Bounce)
+            swordGravity = bounceGravity;
+        else if (swordType == SwordType.Pierce)
+            swordGravity = pierceGravity;
+    }
+
+
     public void CreateSword()
     {
         GameObject newSword = Instantiate(swordPrefab, player.transform.position, transform.rotation);
         SwordSkillController newSwordScript = newSword.GetComponent<SwordSkillController>();
 
-        newSwordScript.SetupSword(finalDir, swordGravity, player);
+       if (swordType == SwordType.Bounce)
+            newSwordScript.SetupBounce(true, bounceAmount);
+        else if (swordType == SwordType.Pierce)
+            newSwordScript.SetupPierce(pierceAmount);
+
+
+            newSwordScript.SetupSword(finalDir, swordGravity, player);
 
         player.AssignNewSword(newSword);
 
         DotsActive(false);
     }
 
+    #region  에임
     public Vector2 AimDirection()
     {
         Vector2 playerPosition = player.transform.position;
@@ -89,4 +125,5 @@ public class SwordSkill : Skill
 
         return position;
     }
+    #endregion
 }
